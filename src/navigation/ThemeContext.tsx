@@ -4,48 +4,55 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const THEME_KEY = '@santvani/theme';
 
 export const LIGHT_COLORS = {
-  primary: '#ff9800',
-  primaryDark: '#e65100',
-  primaryLight: '#fff3e0',
-  primaryBorder: '#ffe0b2',
-  background: '#f4f4f9',
-  card: '#ffffff',
-  text: '#333333',
-  textMuted: '#666666',
-  textFaint: '#999999',
-  border: '#dddddd',
-  highlight: '#fff176',
-  clearBtn: '#dddddd',
-  danger: '#e53935',
-  userBadgeBg: '#e8f5e9',
-  userBadgeBorder: '#a5d6a7',
-  userBadgeText: '#2e7d32',
-  meaningBorder: '#78909c',
-  meaningLabel: '#78909c',
+  // Warm devotional palette
+  primary: '#FF9800',
+  primaryDark: '#E65100',
+  primaryLight: '#FFF3E0',
+  primaryBorder: '#FFE0B2',
+  background: '#FFF8F0',      // warm cream
+  surface: '#FFF3E0',         // light saffron tint
+  card: '#FFFFFF',
+  text: '#3E2000',            // warm dark brown
+  textMuted: '#8D6E63',       // medium brown
+  textFaint: '#BCAAA4',       // light brown-grey
+  border: '#F0DDD0',          // warm border
+  highlight: '#FFE082',       // warm amber highlight
+  clearBtn: '#E0CFC0',
+  danger: '#D84315',
+  userBadgeBg: '#E8F5E9',
+  userBadgeBorder: '#A5D6A7',
+  userBadgeText: '#2E7D32',
+  meaningBorder: '#A1887F',
+  meaningLabel: '#8D6E63',
+  drawerBg: '#FFF8F0',
+  topBarBg: '#FFF8F0',
 } as const;
 
 export const DARK_COLORS = {
-  primary: '#ff9800',
-  primaryDark: '#ffb74d',
-  primaryLight: '#2d1f00',
-  primaryBorder: '#4d3500',
-  background: '#121212',
-  card: '#1e1e1e',
-  text: '#e0e0e0',
-  textMuted: '#aaaaaa',
-  textFaint: '#555555',
-  border: '#333333',
-  highlight: '#4d3a00',
-  clearBtn: '#444444',
-  danger: '#ef5350',
-  userBadgeBg: '#1a3a1c',
-  userBadgeBorder: '#2e6630',
-  userBadgeText: '#81c784',
-  meaningBorder: '#546e7a',
-  meaningLabel: '#90a4ae',
+  primary: '#FF9800',
+  primaryDark: '#FFB74D',
+  primaryLight: '#2D1F00',
+  primaryBorder: '#4D3500',
+  background: '#1A1008',      // very dark warm brown
+  surface: '#2D1A08',         // slightly lighter
+  card: '#251608',            // dark warm card
+  text: '#F5E6D0',            // warm off-white
+  textMuted: '#C4956A',       // warm muted
+  textFaint: '#7A5C3A',       // dim warm
+  border: '#3D2810',          // dark warm border
+  highlight: '#4D3A00',
+  clearBtn: '#4A3020',
+  danger: '#EF5350',
+  userBadgeBg: '#1A3A1C',
+  userBadgeBorder: '#2E6630',
+  userBadgeText: '#81C784',
+  meaningBorder: '#5D4037',
+  meaningLabel: '#A1887F',
+  drawerBg: '#251608',
+  topBarBg: '#1A1008',
 } as const;
 
-export type AppColors = typeof LIGHT_COLORS;
+export type AppColors = { [K in keyof typeof LIGHT_COLORS]: string };
 
 type ThemeContextValue = {
   isDark: boolean;

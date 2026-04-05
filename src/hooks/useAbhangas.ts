@@ -82,6 +82,11 @@ export function useAbhangas(userAbhangas: Abhang[]) {
     setVisibleCount(PAGE_SIZE);
   }, []);
 
+  const filterBySaint = useCallback((saint: string) => {
+    setSelectedSaints(new Set([saint]));
+    setVisibleCount(PAGE_SIZE);
+  }, []);
+
   const getById = useCallback(
     (id: string): Abhang | undefined => mergedAbhangas.find(a => a.id === id),
     [mergedAbhangas],
@@ -101,5 +106,6 @@ export function useAbhangas(userAbhangas: Abhang[]) {
     hasMore: visibleCount < filteredData.length,
     mergedAbhangas,
     getById,
+    filterBySaint,
   };
 }

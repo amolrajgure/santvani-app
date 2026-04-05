@@ -1,8 +1,7 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Ionicons } from '@expo/vector-icons';
 import { HomeScreen } from '../screens/HomeScreen';
+import { BrowseScreen } from '../screens/BrowseScreen';
 import { AbhangDetailScreen } from '../screens/AbhangDetailScreen';
 import { useAppContext } from './AppContext';
 import { useTheme } from './ThemeContext';
@@ -12,7 +11,7 @@ const Stack = createNativeStackNavigator<HomeStackParamList>();
 
 export function HomeStack() {
   const { abhangas, favorites } = useAppContext();
-  const { colors, isDark, toggleTheme } = useTheme();
+  const { colors } = useTheme();
 
   return (
     <Stack.Navigator
@@ -24,21 +23,21 @@ export function HomeStack() {
     >
       <Stack.Screen
         name="Home"
-        options={{
-          title: 'अभंग',
-          headerRight: () => (
-            <TouchableOpacity onPress={toggleTheme} hitSlop={8} style={{ padding: 4 }}>
-              <Ionicons
-                name={isDark ? 'sunny-outline' : 'moon-outline'}
-                size={22}
-                color={colors.primaryDark}
-              />
-            </TouchableOpacity>
-          ),
-        }}
+        options={{ headerShown: false }}
       >
         {() => (
           <HomeScreen
+            useAbhangasHook={abhangas}
+            useFavoritesHook={favorites}
+          />
+        )}
+      </Stack.Screen>
+      <Stack.Screen
+        name="Browse"
+        options={{ title: 'अभंग शोधा' }}
+      >
+        {() => (
+          <BrowseScreen
             useAbhangasHook={abhangas}
             useFavoritesHook={favorites}
           />

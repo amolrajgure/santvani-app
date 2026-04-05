@@ -18,6 +18,7 @@ export type RootTabParamList = {
 
 export type HomeStackParamList = {
   Home: undefined;
+  Browse: { saint?: string };
   AbhangDetail: { id: string };
 };
 
