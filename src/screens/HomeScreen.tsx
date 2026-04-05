@@ -15,6 +15,7 @@ import { SaintFilterModal } from '../components/SaintFilterModal';
 import { EmptyState } from '../components/EmptyState';
 import { useTheme } from '../navigation/ThemeContext';
 import type { AppColors } from '../navigation/ThemeContext';
+import { SAINTS } from '../constants/saints';
 import type { Abhang, HomeStackParamList } from '../types';
 
 interface Props {
@@ -43,7 +44,7 @@ export function HomeScreen({ useAbhangasHook, useFavoritesHook }: Props) {
 
   const { isFavorite, toggleFavorite } = useFavoritesHook;
 
-  const filterActive = selectedSaints.size < 3;
+  const filterActive = selectedSaints.size < SAINTS.length;
 
   const handlePress = useCallback(
     (id: string) => navigation.navigate('AbhangDetail', { id }),
@@ -63,30 +64,28 @@ export function HomeScreen({ useAbhangasHook, useFavoritesHook }: Props) {
     [query, isFavorite, toggleFavorite, handlePress],
   );
 
-  const ListHeader = (
-    <View style={styles.listHeader}>
-      <SearchBar
-        value={query}
-        onChangeText={setQuery}
-        onClear={() => setQuery('')}
-        onFilterPress={() => setFilterVisible(true)}
-        filterActive={filterActive}
-      />
-      <Text style={styles.stats}>
-        {filteredCount === totalCount
-          ? `एकूण ${totalCount} अभंग`
-          : `${filteredCount} / ${totalCount} अभंग`}
-      </Text>
-    </View>
-  );
-
   return (
     <SafeAreaView style={styles.safe}>
+      {/* Fixed header — always interactive regardless of scroll position */}
+      <View style={styles.searchHeader}>
+        <SearchBar
+          value={query}
+          onChangeText={setQuery}
+          onClear={() => setQuery('')}
+          onFilterPress={() => setFilterVisible(true)}
+          filterActive={filterActive}
+        />
+        <Text style={styles.stats}>
+          {filteredCount === totalCount
+            ? `एकूण ${totalCount} अभंग`
+            : `${filteredCount} / ${totalCount} अभंग`}
+        </Text>
+      </View>
+
       <FlatList
         data={visibleItems}
         keyExtractor={item => item.id}
         renderItem={renderItem}
-        ListHeaderComponent={ListHeader}
         ListEmptyComponent={
           <EmptyState message={query ? 'कोणताही अभंग सापडला नाही' : 'अभंग लोड होत आहे...'} />
         }
@@ -97,7 +96,8 @@ export function HomeScreen({ useAbhangasHook, useFavoritesHook }: Props) {
         windowSize={5}
         removeClippedSubviews={Platform.OS === 'android'}
         contentContainerStyle={styles.list}
-        stickyHeaderIndices={[0]}
+        keyboardShouldPersistTaps="handled"
+        keyboardDismissMode="on-drag"
       />
 
       <SaintFilterModal
@@ -117,11 +117,12 @@ function makeStyles(C: AppColors) {
       flex: 1,
       backgroundColor: C.background,
     },
-    listHeader: {
+    searchHeader: {
       backgroundColor: C.background,
       paddingHorizontal: 12,
       paddingTop: 10,
       paddingBottom: 6,
+      zIndex: 1,
     },
     stats: {
       fontSize: 12,

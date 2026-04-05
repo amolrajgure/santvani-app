@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { BUILTIN_ABHANGAS } from '../data/abhangas';
+import { DNYANDEV_ABHANGAS } from '../data/dnyandev_abhangas';
 import { SAINTS } from '../constants/saints';
 import type { Abhang } from '../types';
 
@@ -26,7 +27,7 @@ export function useAbhangas(userAbhangas: Abhang[]) {
 
   // Merged data
   const mergedAbhangas = useMemo(
-    () => [...BUILTIN_ABHANGAS, ...userAbhangas],
+    () => [...BUILTIN_ABHANGAS, ...DNYANDEV_ABHANGAS, ...userAbhangas],
     [userAbhangas],
   );
 

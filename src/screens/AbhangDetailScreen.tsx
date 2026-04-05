@@ -72,7 +72,7 @@ export function AbhangDetailScreen({
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: abhang ? abhang.saint.replace('संत ', '') : 'अभंग',
+      title: abhang?.saint ?? 'अभंग',
       headerRight: () => (
         <View style={styles.headerRight}>
           <TouchableOpacity onPress={handleShare} hitSlop={8} style={styles.headerBtn}>

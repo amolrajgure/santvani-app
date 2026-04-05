@@ -59,7 +59,7 @@ export const AbhangCard = memo(function AbhangCard({
         <View style={styles.rightRow}>
           <View style={styles.saintTag}>
             <Text style={styles.saintTagText} numberOfLines={1}>
-              {item.saint.replace('संत ', '')}
+              {item.saint}
             </Text>
           </View>
           {item.isUserAdded && (
@@ -122,7 +122,7 @@ function makeStyles(C: AppColors) {
       borderColor: C.primaryBorder,
       paddingHorizontal: 8,
       paddingVertical: 2,
-      maxWidth: 90,
+      maxWidth: 130,
     },
     saintTagText: {
       fontSize: 11,
